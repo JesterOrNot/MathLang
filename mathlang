@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 # author Sean Hellum
+"""Mathlang compiler."""
 import fire
 
+
 def compile(file):
-    theFile = open(file,'r')
+    theFile = open(file, 'r')
     if theFile.mode == 'r':
         f = open(file, "r")
         f = f.readlines()
@@ -11,8 +13,10 @@ def compile(file):
         for line in f:
             try:
                 print(eval(line))
-                count+=1
+                count += 1
             except:
                 print(f"Syntax Error on line {count+1}")
+
+
 if __name__ == '__main__':
     fire.Fire()
