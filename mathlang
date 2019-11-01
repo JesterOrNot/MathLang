@@ -6,7 +6,12 @@ def interpreter(file):
     if theFile.mode == 'r':
         f = open(file, "r")
         f = f.readlines()
+        count = 0
         for line in f:
-            print(eval(line))
+            try:
+                print(eval(line))
+                count+=1
+            except:
+                print(f"Syntax Error on line {count+1}")
 if __name__ == '__main__':
     fire.Fire(interpreter)
