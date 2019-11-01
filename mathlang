@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# author Sean Hellum
 import fire
 
 def compile(file):
