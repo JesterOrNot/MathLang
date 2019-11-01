@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import fire
 
-def interpreter(file):
+def compile(file):
     theFile = open(file,'r')
     if theFile.mode == 'r':
         f = open(file, "r")
@@ -14,4 +14,4 @@ def interpreter(file):
             except:
                 print(f"Syntax Error on line {count+1}")
 if __name__ == '__main__':
-    fire.Fire(interpreter)
+    fire.Fire()
