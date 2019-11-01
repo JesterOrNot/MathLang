@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+import fire
+
+def interpreter(file):
+    theFile = open(file,'r')
+    if theFile.mode == 'r':
+        f = open(file, "r")
+        f = f.readlines()
+        for line in f:
+            print(eval(line))
+if __name__ == '__main__':
+    fire.Fire(interpreter)
