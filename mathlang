@@ -2,7 +2,7 @@
 # author Sean Hellum
 """Mathlang compiler."""
 import fire
-
+import math
 
 def compile(file):
     theFile = open(file, 'r')
@@ -12,6 +12,9 @@ def compile(file):
         count = 0
         for line in f:
             try:
+                if line[:4] == "sqrt":
+                    print(math.sqrt(float(line[4:])))
+                    continue
                 print(eval(line))
                 count += 1
             except:
