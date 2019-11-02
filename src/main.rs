@@ -1,5 +1,5 @@
 use std::env;
-use std::io::{prelude::*,BufReader,BufRead};
+use std::io::{BufReader,BufRead};
 use std::fs::File;
 use std::path::Path;
 
@@ -14,11 +14,10 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
 fn main(){
     let args: Vec<_> = env::args().collect();
     if args.len() == 2 {
-        let file = File::open(&args[1]).unwrap();
         let lines = lines_from_file(&args[1]);
         for line in lines {
             if &line[..4] == "sqrt" {
-                //
+                println!("{}",f64::sqrt(line[5..].parse::<f64>().unwrap()));
             }
         }
     } else {
