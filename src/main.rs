@@ -39,6 +39,12 @@ fn main(){
                     println!("{}", &cap[1].parse::<f64>().unwrap() * &cap[2].parse::<f64>().unwrap());
                 }
             }
+            else if line.contains("/") {
+                let re = Regex::new(r"(\d*) / (\d*)").unwrap();
+                for cap in re.captures_iter(&line) {
+                    println!("{}", &cap[1].parse::<f64>().unwrap() / &cap[2].parse::<f64>().unwrap());
+                }
+            }
         }
     } else {
         println!("usage: mathlang [FILE_NAME]");
