@@ -11,3 +11,4 @@ tan 33
 say Hello World!
 // tan 33
 3 % 4
+cbrt 144
