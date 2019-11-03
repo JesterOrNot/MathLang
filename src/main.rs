@@ -17,7 +17,10 @@ pub fn main() {
     let args: Vec<_> = env::args().collect();
     if args.len() == 2 {
         let lines = lines_from_file(&args[1]);
-        for line in lines {
+        for mut line in lines {
+            if line.len() <=3 {
+                &line.push_str("   ");
+            }
             if line.starts_with("//") {
                 continue;
             } else if &line[..4] == "say " {
@@ -55,15 +58,15 @@ pub fn main() {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().cos().acos());
             } else if line.contains("+") {
-                let re = Regex::new(r"(\d*) \+ (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?\+ ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
-                        &cap[1].parse::<f64>().unwrap() + &cap[2].parse::<f64>().unwrap()
+                        cap[1].parse::<f64>().unwrap() + cap[2].parse::<f64>().unwrap()
                     );
                 }
             } else if line.contains("%") {
-                let re = Regex::new(r"(\d*) % (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?% ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -71,7 +74,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("-") {
-                let re = Regex::new(r"(\d*) \- (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?\- ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -79,7 +82,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("*") && !line.contains("**") {
-                let re = Regex::new(r"(\d*) \* (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?\* ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -87,7 +90,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("/") {
-                let re = Regex::new(r"(\d*) / (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?/ ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -95,7 +98,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("**") && !line.contains(" * ") {
-                let re = Regex::new(r"(\d*) \*\* (\d*)").unwrap();
+                let re = Regex::new(r"(\d*) ?\*\* ?(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
