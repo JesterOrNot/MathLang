@@ -18,7 +18,7 @@ pub fn main() {
     if args.len() == 2 {
         let lines = lines_from_file(&args[1]);
         for mut line in lines {
-            if line.len() <=3 {
+            if line.len() <= 3 {
                 &line.push_str("   ");
             }
             if line.starts_with("//") {
