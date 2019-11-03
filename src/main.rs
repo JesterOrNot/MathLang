@@ -31,22 +31,10 @@ fn main() {
                 );
             } else if &line[..3] == "sin" {
                 let lists: Vec<_> = line.split(" ").collect();
-                println!(
-                    "{}",
-                    lists[1]
-                        .parse::<f64>()
-                        .unwrap()
-                        .sin()
-                );
+                println!("{}", lists[1].parse::<f64>().unwrap().sin());
             } else if &line[..3] == "cos" {
                 let lists: Vec<_> = line.split(" ").collect();
-                println!(
-                    "{}",
-                    lists[1]
-                        .parse::<f64>()
-                        .unwrap()
-                        .cos()
-                );
+                println!("{}", lists[1].parse::<f64>().unwrap().cos());
             } else if line.contains("+") {
                 let re = Regex::new(r"(\d*) \+ (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
