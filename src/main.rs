@@ -22,7 +22,7 @@ pub fn main() {
                 &line.push_str("   ");
             }
             if line.contains("//") {
-                let tmp:Vec<&str> = line.split("//").collect();
+                let tmp: Vec<&str> = line.split("//").collect();
                 if !tmp[0].is_empty() {
                     line = tmp[0].to_string();
                 } else {
