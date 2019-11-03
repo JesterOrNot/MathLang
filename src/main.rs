@@ -23,7 +23,11 @@ pub fn main() {
             }
             if line.starts_with("//") {
                 continue;
-            } else if &line[..4] == "say " {
+            } else if line.contains("//") {
+                let tmp:Vec<&str> = line.split("//").collect();
+                line = tmp[0].to_string();
+            }
+            if &line[..4] == "say " {
                 println!("{}", &line[4..]);
             } else if &line[..4] == "sqrt" {
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
