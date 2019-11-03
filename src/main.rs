@@ -20,6 +20,8 @@ fn main() {
         for line in lines {
             if line.starts_with("//") {
                 continue;
+            } else if &line[..4] == "say " {
+                println!("{}", &line[4..]);
             } else if &line[..4] == "sqrt" {
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
             } else if &line[..3] == "log" {
