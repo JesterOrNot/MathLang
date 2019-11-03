@@ -33,7 +33,7 @@ fn main(){
                     println!("{}", &cap[1].parse::<f64>().unwrap() - &cap[2].parse::<f64>().unwrap());
                 }
             }
-            else if line.contains("*") {
+            else if line.contains("*") && !line.contains("**") {
                 let re = Regex::new(r"(\d*) \* (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!("{}", &cap[1].parse::<f64>().unwrap() * &cap[2].parse::<f64>().unwrap());
@@ -43,6 +43,12 @@ fn main(){
                 let re = Regex::new(r"(\d*) / (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!("{}", &cap[1].parse::<f64>().unwrap() / &cap[2].parse::<f64>().unwrap());
+                }
+            }
+            else if line.contains("**") {
+                let re = Regex::new(r"(\d*) \*\* (\d*)").unwrap();
+                for cap in re.captures_iter(&line) {
+                    println!("{}", cap[1].parse::<f64>().unwrap().powf(cap[2].parse::<f64>().unwrap()));
                 }
             }
         }
