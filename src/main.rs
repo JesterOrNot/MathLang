@@ -48,6 +48,9 @@ fn main() {
             } else if &line[..4] == "asin" {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().sin().asin());
+            } else if &line[..4] == "atan" {
+                let lists: Vec<_> = line.split(" ").collect();
+                println!("{}", lists[1].parse::<f64>().unwrap().tan().atan());
             } else if line.contains("+") {
                 let re = Regex::new(r"(\d*) \+ (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
