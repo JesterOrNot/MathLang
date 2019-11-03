@@ -35,6 +35,9 @@ fn main() {
             } else if &line[..3] == "cos" {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().cos());
+            } else if &line[..3] == "tan" {
+                let lists: Vec<_> = line.split(" ").collect();
+                println!("{}", lists[1].parse::<f64>().unwrap().tan());
             } else if line.contains("+") {
                 let re = Regex::new(r"(\d*) \+ (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
