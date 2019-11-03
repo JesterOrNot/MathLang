@@ -20,6 +20,9 @@ fn main() {
         for line in lines {
             if &line[..4] == "sqrt" {
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
+            } else if &line[..3] == "log" {
+                let lists:Vec<_> = line.split(" ").collect();
+                println!("{}", lists[1].parse::<f64>().unwrap().log(lists[2].parse::<f64>().unwrap()));
             } else if line.contains("+") {
                 let re = Regex::new(r"(\d*) \+ (\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
