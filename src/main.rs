@@ -21,11 +21,13 @@ pub fn main() {
             if line.len() <= 3 {
                 &line.push_str("   ");
             }
-            if line.starts_with("//") {
-                continue;
-            } else if line.contains("//") {
+            if line.contains("//") {
                 let tmp:Vec<&str> = line.split("//").collect();
-                line = tmp[0].to_string();
+                if !tmp[0].is_empty() {
+                    line = tmp[0].to_string();
+                } else {
+                    continue;
+                }
             }
             if &line[..4] == "say " {
                 println!("{}", &line[4..]);
