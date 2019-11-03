@@ -38,10 +38,12 @@ pub fn main() {
                 }
             }
             if &line[..4] == "say " {
-                println!("{}", &line[4..]);
+                println!("{}", &line[4..]); // This implements the say keyword which prints things to the screen
             } else if &line[..4] == "sqrt" {
+                // This impements sqrts
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
             } else if &line[..3] == "log" {
+                // This implements logarithms
                 let lists: Vec<_> = line.split(" ").collect();
                 println!(
                     "{}",
@@ -50,6 +52,7 @@ pub fn main() {
                         .unwrap()
                         .log(lists[2].parse::<f64>().unwrap())
                 );
+            // Implements sin cos and tan
             } else if &line[..3] == "sin" {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().sin());
@@ -60,8 +63,10 @@ pub fn main() {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().tan());
             } else if &line[..4] == "cbrt" {
+                // CubeRoots
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().cbrt());
+            // Implements asin acos and atan
             } else if &line[..4] == "asin" {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().sin().asin());
@@ -72,7 +77,7 @@ pub fn main() {
                 let lists: Vec<_> = line.split(" ").collect();
                 println!("{}", lists[1].parse::<f64>().unwrap().cos().acos());
             } else if line.contains("+") {
-                let re = Regex::new(r"(\d*) *\+ *(\d*)").unwrap();
+                let re = Regex::new(r"(\d*) *\+ *(\d*)").unwrap(); // Use regex to define syntax for addition and capture numbers
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -80,7 +85,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("%") {
-                let re = Regex::new(r"(\d*) *% *(\d*)").unwrap();
+                let re = Regex::new(r"(\d*) *% *(\d*)").unwrap(); // Use regex to define syntax for modulos and capture numbers
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -88,7 +93,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("-") {
-                let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap();
+                let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -96,7 +101,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("*") && !line.contains("**") {
-                let re = Regex::new(r"(\d*) *\* *(\d*)").unwrap();
+                let re = Regex::new(r"(\d*) *\* *(\d*)").unwrap(); // Use regex to define syntax for multiplication and capture numbers
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -104,7 +109,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("/") {
-                let re = Regex::new(r"(\d*) */ *(\d*)").unwrap();
+                let re = Regex::new(r"(\d*) */ *(\d*)").unwrap(); // Use regex to define syntax for division and capture numbers
                 for cap in re.captures_iter(&line) {
                     println!(
                         "{}",
@@ -112,6 +117,7 @@ pub fn main() {
                     );
                 }
             } else if line.contains("**") && !line.contains(" * ") {
+                // Use regex to define syntax for exponents and capture numbers
                 let re = Regex::new(r"(\d*) *\*\* *(\d*)").unwrap();
                 for cap in re.captures_iter(&line) {
                     println!(
@@ -123,7 +129,7 @@ pub fn main() {
                     );
                 }
             } else {
-                println!("Syntax Error!");
+                println!("Syntax Error!"); // If nothing passes pretty much assume its a syntax error
             }
         }
     } else {
