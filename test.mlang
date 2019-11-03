@@ -10,3 +10,4 @@ cos 33
 tan 33
 say Hello World!
 // tan 33
+3 % 4
