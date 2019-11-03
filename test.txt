@@ -6,3 +6,4 @@ sqrt 64
 10 / 2
 log 16 4
 sin 33
+cos 33
