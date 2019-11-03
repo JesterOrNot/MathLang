@@ -5,7 +5,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
-fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
+pub fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
     let file = File::open(filename).expect("no such file");
     let buf = BufReader::new(file);
     buf.lines()
@@ -13,7 +13,7 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .collect()
 }
 
-fn main() {
+pub fn main() {
     let args: Vec<_> = env::args().collect();
     if args.len() == 2 {
         let lines = lines_from_file(&args[1]);
