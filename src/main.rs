@@ -5,6 +5,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
+// This function reads the lines from a file into a vector
 pub fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
     let file = File::open(filename).expect("no such file");
     let buf = BufReader::new(file);
@@ -14,16 +15,23 @@ pub fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
 }
 
 pub fn main() {
-    let args: Vec<_> = env::args().collect();
+    let args: Vec<_> = env::args().collect(); // Get command line arguments
     if args.len() == 2 {
-        let lines = lines_from_file(&args[1]);
+        let lines = lines_from_file(&args[1]); // Opens the file given by the user
         for mut line in lines {
             if line.len() <= 3 {
+                // fixes a wierd index out of bounds error
                 &line.push_str("   ");
             }
             if line.contains("//") {
-                let tmp: Vec<&str> = line.split("//").collect();
+                // Comments!
+                let tmp: Vec<&str> = line.split("//").collect(); // Splits the text on comment
                 if !tmp[0].is_empty() {
+                    // Basically if the first characters in the line
+                    // aren't `//` then assign the first item
+                    // (the text before the inline comment)
+                    // otherwise move on because all the text
+                    // is commented out
                     line = tmp[0].to_string();
                 } else {
                     continue;
