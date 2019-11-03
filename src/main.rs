@@ -18,7 +18,9 @@ fn main() {
     if args.len() == 2 {
         let lines = lines_from_file(&args[1]);
         for line in lines {
-            if &line[..4] == "sqrt" {
+            if line.starts_with("//") {
+                continue;
+            } else if &line[..4] == "sqrt" {
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
             } else if &line[..3] == "log" {
                 let lists: Vec<_> = line.split(" ").collect();
