@@ -11,6 +11,15 @@ pub fn lines_from_file(filename: impl AsRef<Path>) -> impl Iterator<Item = Strin
     let buf = BufReader::new(file);
     buf.lines().map(|l| l.expect("Could not parse line"))
 }
+pub fn subtraction_operator(line: &String) {
+    let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
+    for cap in re.captures_iter(&line) {
+        println!(
+            "{}",
+            &cap[1].parse::<f64>().unwrap() - &cap[2].parse::<f64>().unwrap()
+        );
+    }
+}
 pub fn add_operator(line: &String) {
     let re = Regex::new(r"(\d*) *\+ *(\d*)").unwrap(); // Use regex to define syntax for addition and capture numbers
     for cap in re.captures_iter(&line) {
@@ -103,15 +112,9 @@ pub fn main() {
             } else if line.contains("+") {
                 add_operator(&line);
             } else if line.contains("%") {
-                modulos_operator(&line)
+                modulos_operator(&line);
             } else if line.contains("-") {
-                let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
-                for cap in re.captures_iter(&line) {
-                    println!(
-                        "{}",
-                        &cap[1].parse::<f64>().unwrap() - &cap[2].parse::<f64>().unwrap()
-                    );
-                }
+                subtraction_operator(&line);
             } else if line.contains("*") && !line.contains("**") {
                 let re = Regex::new(r"(\d*) *\* *(\d*)").unwrap(); // Use regex to define syntax for multiplication and capture numbers
                 for cap in re.captures_iter(&line) {
