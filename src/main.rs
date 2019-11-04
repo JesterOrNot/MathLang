@@ -29,6 +29,15 @@ pub fn divide_operator(line: &String) {
         );
     }
 }
+pub fn modulos_operator(line: &String) {
+    let re = Regex::new(r"(\d*) *% *(\d*)").unwrap(); // Use regex to define syntax for modulos and capture numbers
+    for cap in re.captures_iter(&line) {
+        println!(
+            "{}",
+            &cap[1].parse::<f64>().unwrap() % &cap[2].parse::<f64>().unwrap()
+        );
+    }
+}
 pub fn main() {
     let args: Vec<_> = env::args().collect(); // Get command line arguments
     if args.len() == 2 {
@@ -94,13 +103,7 @@ pub fn main() {
             } else if line.contains("+") {
                 add_operator(&line);
             } else if line.contains("%") {
-                let re = Regex::new(r"(\d*) *% *(\d*)").unwrap(); // Use regex to define syntax for modulos and capture numbers
-                for cap in re.captures_iter(&line) {
-                    println!(
-                        "{}",
-                        &cap[1].parse::<f64>().unwrap() % &cap[2].parse::<f64>().unwrap()
-                    );
-                }
+                modulos_operator(&line)
             } else if line.contains("-") {
                 let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
                 for cap in re.captures_iter(&line) {
