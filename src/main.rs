@@ -60,6 +60,17 @@ pub fn exponents_operator(line: &String) {
         );
     }
 }
+pub fn logarithm(line: &String) {
+    // This implements logarithms
+    let lists: Vec<_> = line.split(" ").collect();
+    println!(
+        "{}",
+        lists[1]
+            .parse::<f64>()
+            .unwrap()
+            .log(lists[2].parse::<f64>().unwrap())
+    );
+}
 pub fn main() {
     let args: Vec<_> = env::args().collect(); // Get command line arguments
     if args.len() == 2 {
@@ -89,15 +100,7 @@ pub fn main() {
                 // This impements sqrts
                 println!("{}", f64::sqrt(line[5..].parse::<f64>().unwrap()));
             } else if &line[..3] == "log" {
-                // This implements logarithms
-                let lists: Vec<_> = line.split(" ").collect();
-                println!(
-                    "{}",
-                    lists[1]
-                        .parse::<f64>()
-                        .unwrap()
-                        .log(lists[2].parse::<f64>().unwrap())
-                );
+                logarithm(&line)
             // Implements sin cos and tan
             } else if &line[..3] == "sin" {
                 let lists: Vec<_> = line.split(" ").collect();
