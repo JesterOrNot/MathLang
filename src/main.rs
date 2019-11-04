@@ -6,12 +6,11 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 // This function reads the lines from a file into a vector
-pub fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
+pub fn lines_from_file(filename: impl AsRef<Path>) -> impl Iterator<Item = String> {
     let file = File::open(filename).expect("no such file");
     let buf = BufReader::new(file);
     buf.lines()
         .map(|l| l.expect("Could not parse line"))
-        .collect()
 }
 
 pub fn main() {
