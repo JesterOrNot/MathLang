@@ -47,6 +47,19 @@ pub fn modulos_operator(line: &String) {
         );
     }
 }
+pub fn exponents_operator(line: &String) {
+    // Use regex to define syntax for exponents and capture numbers
+    let re = Regex::new(r"(\d*) *\*\* *(\d*)").unwrap();
+    for cap in re.captures_iter(&line) {
+        println!(
+            "{}",
+            cap[1]
+                .parse::<f64>()
+                .unwrap()
+                .powf(cap[2].parse::<f64>().unwrap())
+        );
+    }
+}
 pub fn main() {
     let args: Vec<_> = env::args().collect(); // Get command line arguments
     if args.len() == 2 {
@@ -126,17 +139,7 @@ pub fn main() {
             } else if line.contains("/") {
                 divide_operator(&line);
             } else if line.contains("**") && !line.contains(" * ") {
-                // Use regex to define syntax for exponents and capture numbers
-                let re = Regex::new(r"(\d*) *\*\* *(\d*)").unwrap();
-                for cap in re.captures_iter(&line) {
-                    println!(
-                        "{}",
-                        cap[1]
-                            .parse::<f64>()
-                            .unwrap()
-                            .powf(cap[2].parse::<f64>().unwrap())
-                    );
-                }
+                exponents_operator(&line);
             } else {
                 println!("Syntax Error!"); // If nothing passes pretty much assume its a syntax error
             }
