@@ -129,13 +129,7 @@ pub fn main() {
             } else if line.contains("-") {
                 subtraction_operator(&line);
             } else if line.contains("*") && !line.contains("**") {
-                let re = Regex::new(r"(\d*) *\* *(\d*)").unwrap(); // Use regex to define syntax for multiplication and capture numbers
-                for cap in re.captures_iter(&line) {
-                    println!(
-                        "{}",
-                        &cap[1].parse::<f64>().unwrap() * &cap[2].parse::<f64>().unwrap()
-                    );
-                }
+                exponents_operator(&line);
             } else if line.contains("/") {
                 divide_operator(&line);
             } else if line.contains("**") && !line.contains(" * ") {
