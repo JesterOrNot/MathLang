@@ -1,38 +1,76 @@
-from pygments.lexer import RegexLexer
-from pygments.token import *
-from prompt_toolkit.styles import Style
-from prompt_toolkit.shortcuts import prompt
-from prompt_toolkit.lexers import PygmentsLexer
+import sys
+import tty
+import re
 
 
-class DiffLexer(RegexLexer):
-
-    tokens = {
-        'root': [
-            ("sqrt", Keyword),
-            ("log", Keyword),
-            ("say", Keyword),
-            ("sin", Keyword),
-            ("cos", Keyword),
-            ("tan", Keyword),
-            ("cbrt", Keyword),
-            ("asin", Keyword),
-            ("acos", Keyword),
-            ("atan", Keyword),
-            (r"[0-9]", Number),
-        ]
-    }
-    style = Style.from_dict(
-        {
-            'pygments.keyword': '#5db100 bold',
-            "pygments.literal.number": '#ff6d3d'
-        }
-    )
+def syntax_highlight(input, keywords: dict):
+    i = 0
+    splitted = input.split(" ")
+    for f in splitted:
+        for keyword in keywords.keys():
+            if re.match(keyword, f):
+                splitted[i] = keywords.get(
+                    keyword) + re.findall(keyword, f)[0] + u"\u001b[0m"
+        i += 1
+    return " ".join(splitted)
 
 
-def main():
-    answer = prompt("Give me some input: ", lexer=PygmentsLexer(DiffLexer), style=DiffLexer.style)
-    print("You said: %s" % answer)
+def command_line(keywords: dict):
+    tty.setraw(sys.stdin)
+    input = ""
+    index = 0
+    sys.stdout.write("\n")
+    sys.stdout.write(u"\u001b[1000D")
+    sys.stdout.write(u"\u001b[0K")
+    do_print = True
+    while True:
+        if do_print:
+            sys.stdout.write(">>> ")
+            do_print = False
+        sys.stdout.flush()
+        char = sys.stdin.read(1)
+        if char == ":":
+            sys.stdout.write("\n")
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(u"\u001b[0K")
+            return ""
+        if 32 <= ord(char) <= 126:
+            input += char
+        if ord(char) == 127:
+            input = input[:index-1]
+        if ord(char) in {10, 13}:
+            input = ""
+            sys.stdout.write("\n")
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(u"\u001b[0K")
+            sys.stdout.flush()
+            do_print = True
+            continue
+        sys.stdout.write(u"\u001b[1000D")
+        sys.stdout.write(u"\u001b[4C")
+        sys.stdout.write(u"\u001b[0K")
+        sys.stdout.write(syntax_highlight(input, keywords))
+        if index > 0:
+            sys.stdout.write(u"\u001b[" + str(index) + "C")
+        sys.stdout.flush()
+    return input
 
 
-main()
+command_line({"sqrt": "\u001b[38;5;198m",
+              "log": "\u001b[38;5;198m",
+              "say": "\u001b[38;5;198m",
+              "sin": "\u001b[38;5;198m",
+              "cos": "\u001b[38;5;198m",
+              "tan": "\u001b[38;5;198m",
+              "cbrt": "\u001b[38;5;198m",
+              "asin": "\u001b[38;5;198m",
+              "acos": "\u001b[38;5;198m",
+              "atan": "\u001b[38;5;198m",
+              "\d+": "\u001b[38;2;214;119;119m",
+              "\+": "\u001b[38;2;112;112;112m",
+              "-": "\u001b[38;2;112;112;112m",
+              "\*\*?": "\u001b[38;2;112;112;112m",
+              "/": "\u001b[38;2;112;112;112m",
+              "%": "\u001b[38;2;112;112;112m",
+              "\".*\"": "\u001b[38;2;26;166;228m",
+              })
