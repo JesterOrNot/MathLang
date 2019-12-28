@@ -44,9 +44,9 @@ def command_line(keywords: dict):
             sys.stdout.write(u"\u001b[1000D")
             sys.stdout.write(u"\u001b[0K")
             sys.stdout.flush()
-            with open(".mlangrepl.temp", "w+") as f:
+            with open("/tmp/.mlangrepl.temp", "w+") as f:
                 f.write(input)
-            os.system("mathlang .mlangrepl.temp")
+            os.system("mathlang /tmp/.mlangrepl.temp")
             input = ""
             sys.stdout.write("\n")
             sys.stdout.write(u"\u001b[1000D")
