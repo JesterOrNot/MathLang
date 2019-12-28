@@ -1,6 +1,7 @@
 import sys
 import tty
 import re
+import os
 
 
 def syntax_highlight(input, keywords: dict):
@@ -39,6 +40,13 @@ def command_line(keywords: dict):
         if ord(char) == 127:
             input = input[:index-1]
         if ord(char) in {10, 13}:
+            sys.stdout.write("\n")
+            sys.stdout.write(u"\u001b[1000D")
+            sys.stdout.write(u"\u001b[0K")
+            sys.stdout.flush()
+            with open(".mlangrepl.temp", "w+") as f:
+                f.write(input)
+            os.system("mathlang .mlangrepl.temp")
             input = ""
             sys.stdout.write("\n")
             sys.stdout.write(u"\u001b[1000D")
