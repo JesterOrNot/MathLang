@@ -30,7 +30,7 @@ pub fn add_operator(line: &String) {
     }
 }
 pub fn divide_operator(line: &String) {
-    let re = Regex::new(r"(\d*) *\- *(\d*)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
+    let re = Regex::new(r"(\d+) *\- *(\d+)").unwrap(); // Use regex to define syntax for subtraction and capture numbers
     for cap in re.captures_iter(&line) {
         println!(
             "{}",
@@ -39,7 +39,7 @@ pub fn divide_operator(line: &String) {
     }
 }
 pub fn modulos_operator(line: &String) {
-    let re = Regex::new(r"(\d*) *% *(\d*)").unwrap(); // Use regex to define syntax for modulos and capture numbers
+    let re = Regex::new(r"(\d+) *% *(\d+)").unwrap(); // Use regex to define syntax for modulos and capture numbers
     for cap in re.captures_iter(&line) {
         println!(
             "{}",
@@ -49,8 +49,8 @@ pub fn modulos_operator(line: &String) {
 }
 pub fn exponents_operator(line: &String) {
     // Use regex to define syntax for exponents and capture numbers
-    let re = Regex::new(r"(\d*) *\*\* *(\d*)").unwrap();
-    for cap in re.captures_iter(&line) {
+    let exponents_regex = Regex::new(r"(\d+) *\*\* *(\d+)").unwrap();
+    for cap in exponents_regex.captures_iter(&line) {
         println!(
             "{}",
             cap[1]
