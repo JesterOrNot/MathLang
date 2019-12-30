@@ -77,7 +77,7 @@ pub fn main() {
         let lines = lines_from_file(&args[1]); // Opens the file given by the user
         for mut line in lines {
             if line.len() <= 3 {
-                // fixes a wierd index out of bounds error
+                // fixes a weird index out of bounds error
                 &line.push_str("   ");
             }
             if line.contains("//") {
