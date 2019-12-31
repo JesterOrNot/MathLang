@@ -4,6 +4,7 @@ use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
+use std::process::exit;
 
 // This function reads the lines from a file into a vector
 pub fn lines_from_file<T: AsRef<Path>>(filename: T) -> impl Iterator<Item = String> {
@@ -12,7 +13,7 @@ pub fn lines_from_file<T: AsRef<Path>>(filename: T) -> impl Iterator<Item = Stri
         Ok(n) => n,
         Err(_) => {
             println!("Error! File not found!");
-            std::process::exit(0);
+            exit(0);
         },
     };
     let buf = BufReader::new(file);
